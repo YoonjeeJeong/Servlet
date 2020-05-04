@@ -1,7 +1,11 @@
 package model;
 
 import java.sql.Date;
-
+//DTO객체(Data Transfer Object)
+//: 데이터를 저장하기위한 객체로 멤버변수, 생성자, getter/setter메소드를 가지고 있는 클래스로,
+//일반적인 자바빈(Bean)규약을 따른다 
+/*자바빈: 반복적으로 코드를 따로 작성하여 재사용하기 위해 만들어진 JAVA클래스를 말한다. 
+ 자바빈은 속성과 메서드로 이루어져 있으며, 주로 데이터의 처리를 담당한다. */
 public class MemberDTO {
 	//멤버변수: 정보은닉을 위해 private으로 선언함
 	private String id;
@@ -44,8 +48,5 @@ public class MemberDTO {
 	}
 	public void setRegidate(java.sql.Date regidate) {
 		this.regidate = regidate;
-	}
-	
-	
-	
+	}	
 }

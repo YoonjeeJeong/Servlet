@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" errorPage="ErrorPage.jsp"%>
-    
-    
-    
+    pageEncoding="UTF-8" errorPage="ErrorPage.jsp"%>   
     <%--
     errorPage 지시어: 해당 페이지에서 에러(예외)가 발생되었을 때
     예외처리를 설정한 페이지에서 하겠다는 선언이다. 500에러와 같은 페이지를
@@ -45,7 +42,8 @@
 	<span style="color:red; font-size: 2em;">
 		<% if(ageAfter10 != -1){ %>
 			당신의 10년후 나이는 <%=ageAfter10 %>살입니다.
-		<% } else {%>
+		<% } 
+			else {%>
 		<%=errorStr %>
 		<%} %>
 	</span>
