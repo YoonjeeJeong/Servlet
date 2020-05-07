@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- 
+<%
+//폼값 받기 - 파라미터로 전달된 게시물의 일련번호
+String num = request.getParameter("num");
+BbsDAO dao = new BbsDAO(application);
+
+//게시물을 가져와서 dto객체로 반환
+BbsDTO dto = dao.selectView(num);
+dao.close();
+%>
+ --%>
+
+
 	<div class="row">		
 		<div class="col-12">			 
 			<!-- 
@@ -37,10 +50,21 @@
 
 				<form class="form-inline mt-3 ml-3" method="get" action="">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder="Search">
+					<%--여기 000님 로그인 중으로 나오도록 변견 --%>
+					<% if(session.getAttribute("USER_ID")!=null){ %>
+						<h5 class="ml-4"><%=session.getAttribute("USER_NAME") %>님,
+							로그인 하셨습니다.</h5>
+							<%} %>
+					<%-- 
+					<div class="input-group mb-3">
+						<td><%=dto.getName() %>님이 로그인했음 << 페이지가 넘어가지 않는 경우에는 이걸 써도 괜찮다</td>
+					</div>
+					 --%>		
+						<!-- <input type="text" class="form-control" placeholder="Search">
 						<div class="input-group-append">
 							<button class="btn btn-warning" type="submit"><i class='fas fa-search' style='font-size:20px'></i></button>
-						</div>
+						</div> -->
+					<%--여기 변경 --%>	
 					</div>
 				</form>
 				<ul class="navbar-nav ml-auto" >

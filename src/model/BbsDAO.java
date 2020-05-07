@@ -8,12 +8,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.servlet.ServletContext;
+
 public class BbsDAO {
 	
 	Connection con;
 	PreparedStatement psmt;
 	ResultSet rs;
-	//인자생성자: DB연결
+	
+	//인자생성자1: DB연결	
+	/* jsp파일에서 web.xml에 등록된 컨텍스트 초기화 파라미터를 가져와서 
+	생성자 호출시 파라미터로 전달한다. */
 	public BbsDAO(String driver, String url) {
 		
 		try{
@@ -27,7 +32,139 @@ public class BbsDAO {
 			e.printStackTrace();
 		}
 	}
-	
+	//인자생성자2: 
+	/*
+	 jsp에서는 application내 내장객체를 파라미터로 전달하고
+	 생성자에서는 web.xml에 직접 접근한다. application내장객체는
+	 javax.servlet.ServletContext타입으로 정의되었으므로
+	 메소드에서 사용시에는 해당 타입으로 받아야한다.
+	 ※각 내장객체의 타입은 jsp교안 "04내장객체" 참조할 것!
+	 */
+	public BbsDAO(ServletContext ctx) {
+		try{
+			Class.forName(ctx.getInitParameter("JDBCDriver"));
+			String id = "kosmo";
+			String pw = "1234";
+			con = DriverManager.getConnection(ctx.getInitParameter("ConnectionURL"), id, pw);
+			System.out.println("DB연결 성공");
+		}
+		catch(Exception e){
+			System.out.println("연결실패");
+			e.printStackTrace();
+		}
+	}
+	//글쓰기 처리 메소드
+	public int insertWrite(BbsDTO dto) {
+		
+		int affected=0;//실제 입력된 행의 갯수를 저장하기 위한 변수
+		try {
+			String query = "INSERT INTO board ( "
+					+ " num,title,content,id,visitcount) "
+					+ " VALUES ( "
+					+ " seq_board_num.nextval, ?, ?, ?, 0)";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getId());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println("insert중 예외 발생함");
+			e.printStackTrace();
+		}
+		return affected;
+	}
+	//조회수 증가 - 일련번호num에 해당하는 게시물의 조회수 증가
+	public void updateVisitCount(String num) {
+		String query = "update board set visitcount=visitcount+1 where num=?";
+		System.out.println("조회수 증가: "+query);
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, num);
+			psmt.executeQuery();
+		}
+		catch (Exception e) {
+			System.out.println("조회수 증가시 예외발생한다 ㅎㅎ");
+			e.printStackTrace();
+		}
+	}
+	//게시물 가져오기 - 일련번호에 해당하는 게시물을 가져와서 dto객체에 저장 후 반환
+	public BbsDTO selectView(String num) {
+		
+		BbsDTO dto = new BbsDTO();
+		//아래: 기존 쿼리문은 member테이블과의 조인이 없다
+		//String query = "SELECT * FROM board WHERE num=?";
+		
+		//아래:변경된 쿼리문은 조인해서 사용자 이름을 가져온다
+		String query = "SELECT B.*, M.name " + 
+						" FROM member M inner join board B " + 
+						" ON M.id=B.id " + 
+						"WHERE num=?";
+		System.out.println(query);
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, num);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				System.out.println(rs.getString(1));
+				System.out.println(rs.getString(2));
+				
+				
+				dto.setNum(rs.getString(1));
+				dto.setTitle(rs.getString(2));
+				dto.setContent(rs.getString("content"));
+				dto.setPostdate(rs.getDate("postdate"));
+				dto.setId(rs.getString("id"));
+				dto.setVisitcount(rs.getString(6));
+				//테이블 조인으로 컬럼추가
+				dto.setName(rs.getString("name"));
+			}
+		}
+		catch(Exception e) {
+			System.out.println("상세보기시 예외발생");
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	public int updateEdit(BbsDTO dto) {
+		int affected = 0;
+		try {
+			String query = "update board set title=?, content=? where num=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getNum());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("update중 예외 발생!");
+			e.printStackTrace();
+		}
+		return affected;
+	}
+	//게시물 삭제처리
+	public int delete(BbsDTO dto) {
+		int affected = 0;
+		try {
+			String query = "DELETE FROM board WHERE num=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getNum());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("delete중 예외 발생");
+			e.printStackTrace();
+		}
+		return affected;
+	}
 	//DB자원해제
 	public void close() {
 		try {
@@ -53,8 +190,7 @@ public class BbsDAO {
 		
 		//jsp페이지에서 검색어를 입력한 경우 where절이 동적으로 추가됨
 		if(map.get("Word")!=null) {
-			query += " WHERE " + map.get("Column")+ " "
-					+ " LIKE '%" + map.get("Word") + "%'";
+			query += " WHERE " + map.get("Column")+ " LIKE '%" + map.get("Word") + "%'";
 		}
 		System.out.println("query=" + query);
 		
@@ -69,8 +205,7 @@ public class BbsDAO {
 		catch(Exception e) {
 			
 		}
-		return totalCount;
-		
+		return totalCount;		
 	}
 	/*
 	 게시판 리스트에서 조건에 맞는 레코드를 select하여 ResultSet(결과셋)을
@@ -116,7 +251,7 @@ public class BbsDAO {
 			System.out.println("select시 예외발생");
 			e.printStackTrace();
 		}
-		return bbs;
+		return bbs;//리스트 보여줌
 	}
 	
 	

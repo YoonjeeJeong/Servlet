@@ -129,7 +129,7 @@ dao.close();
 				
 				<tr>
 					<td class="text-center"><%=vNum %></td>
-					<td class="text-left"><a href="BoardView.jsp?idx=<%=dto.getNum() %>">
+					<td class="text-left"><a href="BoardView.jsp?num=<%=dto.getNum() %>">
 						<%=dto.getTitle() %>
 						</a>
 						</td>
