@@ -37,7 +37,7 @@
 	checkbox와 같은 다중 폼값은 ${paramValues.폼이름 }
 	또한 쿼리스트링으로 전달되는 파라미터도 동일하게 받을 수 있다.
 	바뀌는 모습:
-	웹주소.html?page=10 ==> ${param.page}
+	웹주소.html?page=10 ==> ${param.page}ㅎㅎㅎ
 	
 	 --%>
 	<h3>EL로 받기</h3>
