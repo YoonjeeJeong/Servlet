@@ -24,11 +24,9 @@
 	  <short-name>my</short-name>
 	  
 	  <!-- 호출할 자바 클래스의 메소드 등록 -->
-	  <function>
-	  
-	  <!-- EL 에서 사용할 메소드 명 -->
-	    <name>isNumber</name>
-	  
+	  <function>  
+	  	<!-- EL 에서 사용할 메소드 명 -->
+	    <name>isNumber</name>  
 	    <!-- 클래스의 패키지를 포함한 풀 경로 -->
 	    <function-class>eltag.MyTagLib</function-class>
 	  
@@ -43,6 +41,15 @@
 	    <function-class>eltag.MyTagLib</function-class>
 		<function-signature>javan.lang.String getGender(java.lang.String)</function-signature>
    </function> 
+      
+   <function>
+	    <name>memberLogin</name>
+	    <function-class>eltag.MyTagLib</function-class>
+		<function-signature>boolean memberLogin(java.lang.String, java.lang.String, 
+		java.lang.String, java.lang.String)
+		</function-signature>
+   </function> 
+   
   </taglib>
   
   

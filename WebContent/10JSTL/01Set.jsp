@@ -26,7 +26,7 @@ set태그 속성
 	<h3>set태그로 el에서 사용할 변수 설정하기</h3>
 	<ul>
 		<li>
-		1.value속성에 직접 값 대임:
+		1.value속성에 직접 값 대입:
 			<c:set var="directVar" value="100" />
 		</li>
 		<li>
@@ -178,7 +178,7 @@ set태그 속성
 	<h4>2단계: target및 property속성으로 속성값 설정</h4>
 	<c:set target="${map.args }" property="id" value="AOA" />
 	<c:set target="${map.args }" property="pass" value="7777" />
-	<c:set target="${map.args }" property="name" value="설형짱" />
+	<c:set target="${map.args }" property="name" value="바지사장" />
 	
 	<h4>속성값 변경후 출력</h4>
 	<ul>

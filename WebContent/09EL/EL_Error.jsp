@@ -91,7 +91,7 @@
 			EL을 통해 4가지 영역에 접근할때는 XXXScope패턴으로 사용한다.
 			pageContext는 jsp에서 접근시 사용된다.
 			 -->
-			<li>\${pageContext.nop } : \${pageContext.nop } [컴파일오류발생 -> 내장객체명은 정해져있음]</li>
+			<li>\${pageContext.nop } : \${pageContext.nop} [컴파일오류발생 -> 내장객체명은 정해져있음]</li>
 		</ul>
 		
 		<h2>EL의 내장객체중 사용자가 정의한 속성에 접근하는 내장객체 및 맵 컬렉션인 경우</h2>
