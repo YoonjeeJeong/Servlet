@@ -27,7 +27,27 @@ public class MyTagLib {
 		메소드 설명: 매개변수로 주민번호를 전달받아 성별을 판단하여 반환하는
 		메소드를 작성한다. 주민번호는 123456-7890123 형태로 전달된다.
 		*/
-		public static String getGender(String jumin){
+		public static String getGender(String jumin) {
+			
+			String result = "";
+			int beginIdx = jumin.indexOf("-")+1;//-이후가 성별을 식별자므로 +1을 한다
+			
+			String gender = jumin.substring(beginIdx, beginIdx+1);
+			if(Integer.parseInt(gender)==1 || Integer.parseInt(gender)==3) {
+				result="남자";//1,3으로 시작하면 문자열은 "남자"가 된다
+			}
+			else if(Integer.parseInt(gender)==2 || Integer.parseInt(gender)==4) {
+				result="여자";
+			}
+			else {
+				result="잘못되었으 -_-";
+			}
+			return result;
+		}
+			
+		
+		
+		/*public static String getGender(String jumin){
 			String returnStr = "";
 			//indexOf()를 통해 -(하이픈)의 위치를 찾는다
 			int beginIdx = jumin.indexOf("-")+1;//1을 더하면 성별을 표현하는 숫자가 된다
@@ -44,7 +64,7 @@ public class MyTagLib {
 				returnStr = "주민번호 오류";
 			}
 			return returnStr;
-		}
+		}*/
 		//내 버전: 
 		/*public static void getGender(String value) {
 			char[] numArr = value.toCharArray();
@@ -69,9 +89,11 @@ public class MyTagLib {
 		public static boolean memberLogin(String id, String pw, String drv, String url) {
 			
 			//1. DB연결을 위한 객체생성
+			//DAO파일의 public MemberDAO(String driver, String url)에 해당된다
 			MemberDAO dao = new MemberDAO(drv, url);
 			
 			//2. 아이디/패워를 통한 회원인증 및 결과반환
+			//DAO파일의 isMember(String id, String pass)에 해당된다
 			boolean isBool= dao.isMember(id, pw);
 			
 			//3. 2번에서의 결과를 호출한 지점으로 반환

@@ -34,6 +34,37 @@
 		</c:otherwise>
 	</c:choose>
 	
+	<br>
+	<c:set var="number1" value="7" />
+	<c:set var="number2" value="17" />
+	
+	<c:choose>
+		<c:when test="${number1 mod 5 eq 0 }">
+			${number1 }은 7의 배수입니다
+		</c:when>
+		<c:when test="${(number1 + number2) eq 17}">
+			${number1 }과${numer2 }의 합은 ${(number1 + number2)}입니다
+		</c:when>
+		<c:otherwise>
+			${number1 }은 7의 공배수입니다
+		</c:otherwise>
+	</c:choose>
+	
+	<br>
+	<c:set var="string1" value="Sicilia" />
+	<c:choose>
+		<c:when test="${string1 eq 'Sicily' }" >
+		string1=Sicily
+		</c:when>
+		<c:when test="${string1 eq 'Sicilia' }">
+		string1=Sicilia
+		</c:when>
+		<c:otherwise>
+		string1=시칠리아	
+		</c:otherwise>
+	</c:choose>
+	
+	
 	<h3>국영수 점수를 입력받아 평균점수로 학점출력</h3>
 	<h4>점수를 입력하세요</h4>
 	<form>
@@ -42,16 +73,19 @@
 		수학: <input type="text" name="math"><br>
 		<input type="submit" value="학점구하기">
 	</form>
-	<c:if test="${not empty param.kor }">
-		<c:set var="avg" value="${(param.kor + param.eng + param.math)/3}" />
-		귀하의 평균점수는 ${avg }입니다	
+	
+		<br>
+	
+	<c:if test="${not empty param.kor}">
+		<c:set var="avg" value="${(param.kor + param.eng + param.math)/3}"></c:set>
+		평균 성적은 ${avg }입니다.
 		<br>
 		<c:choose>
-			<c:when test="${avg >=90 }">A학점</c:when>
-			<c:when test="${avg >=80 }">B학점</c:when>
-			<c:when test="${avg >=70 }">C학점</c:when>
-			<c:when test="${avg >=60 }">D학점</c:when>
-			<c:otherwise>F학점</c:otherwise>
+			<c:when test="${avg ge 90}">A level</c:when>
+			<c:when test="${avg ge 80}">B level</c:when>
+			<c:when test="${avg ge 70}">C level</c:when>
+			<c:when test="${avg gt 59}">D level</c:when>
+			<c:otherwise>F level</c:otherwise>
 		</c:choose>
 	</c:if>
 	

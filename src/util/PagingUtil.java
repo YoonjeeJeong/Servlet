@@ -8,6 +8,7 @@ public class PagingUtil {
 		
 		int totalPage = 
 				(int)(Math.ceil(((double)totalRecordCount)/pageSize));
+		
 		int intTemp = (((nowPage-1)/blockPage) * blockPage) + 1;
 		
 		if(intTemp !=1) {

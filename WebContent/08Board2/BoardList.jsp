@@ -40,7 +40,7 @@ if(searchWord!=null){
 
 //bbs테이블이 입력된 전체 레코드 갯수를 카운트하여 반환받음
 int totalRecordCount = dao.getTotalRecordCount(param);
-//web.xml의 초기화 파라미터 가져와서 정수로 변경후 저장
+//web.xml의 초기화 파라미터 가져와서 정수로 변경후 저장. web.xml에 페이지 사이즈와 페이지당 보이는 블럭수를 정했다.
 int pageSize = 
 	Integer.parseInt(application.getInitParameter("PAGE_SIZE"));
 int blockPage =

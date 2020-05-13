@@ -39,7 +39,7 @@
 	<function>
 	    <name>getGender</name>
 	    <function-class>eltag.MyTagLib</function-class>
-		<function-signature>javan.lang.String getGender(java.lang.String)</function-signature>
+		<function-signature>java.lang.String getGender(java.lang.String)</function-signature>
    </function> 
       
    <function>

@@ -20,7 +20,7 @@
  -->
 	<h2>if태그</h2>
 	<c:set var="numVar" value="100" />
-	<c:set var="strVar" value="JAVA" />
+	<c:set var="strVar" value="llorona" />
 	
 	<!-- 
 	if(numVar%2==0)와 동일한 조건으로, 해당 조건은
@@ -32,22 +32,29 @@
 		${numVar }는 짝수입니다. <br>
 	</c:if>
 	\${result } : ${result } <br>
+	<br>
+	<c:if test="${numVar==100}" var="result1">
+		${numVar }는 100입니다. <br>
+	</c:if>
+	\${result1 } : ${result1 }
 	
 	<h3>위 if문을 el식의 삼항식으로 표현</h3>
 	${numVar } : ${numVar mod 2 == 0 ? "는 짝수" : "는 홀수" }
+	<br>
+	${numVar } : ${numVar mod 3==0 ? "는 3의 배수" : "는 3의 배수가 아님!" }
 	
 	<!-- 
 	jstl의 if문은 else가 없기 때문에 참 또는 거직의 형태로 만들때는
 	아래와 같이 참인조건, 거짓인 조건으로 각각의 if문의 블럭을 만들어야 한다.
 	 -->
-	<h3>문자열 비교</h3>
-	<c:if test="${JAVA eq '자바' }">
-		${strVar }는 자바다 <br><!-- 조건이 false이므로 출력 안 됨 -->
-	</c:if>
+	<h3>문자열 비교</h3>	
+	<c:if test="${llorona eq '요로나'}">
+		${strVar }는 요로나다 <br>
+	</c:if><!-- false라서 출력 안 됨 -->
 	
-	<c:if test="${JAVA ne '자바' }"><!-- 조건이 true.출력됨. -->
-		${strVar }는 자바가 아니다
-	</c:if>
+	<c:if test="${llorona != '요로나'}">
+		${strVar }는 요로나가 아니다
+	</c:if><!-- != 와 ne은 같다 -->
 	
 	<!-- 
 	-test속성에 el식이 아닌 일반값이 들어가면 무조건 false를 반환한다
@@ -57,26 +64,36 @@
 	<h2>if문 사용시 주의사항</h2>
 	<h3>항상 출력되거나 출력되지 않는 조건식</h3>
 	<c:if test="${true }">
-		난 항상 출력돼~ yes~!!!
+		난 항상 출력됨!
 	</c:if>
-	<c:if test="${false }">
-		난 절대 출력돼지 않아~ oh no~!
-	</c:if>
-	<h3>test속성에 일반적으로 조건지정</h3>
-	<c:if test="100" var="result">
-		100은 일반값이므로 무조건  false 반환
-	</c:if>
-	\${result } : ${result} <br>
 	
-	<c:if test="tRuE" var="result">
-		TRUE(true) 대소문자 구분 없음. 항상 참임.<br>
+	<c:if test="${false }">
+		난 절대 출력 안 돼 ㅠㅠ
 	</c:if>
-	\${result } : ${result } <br>
+	
+	<h3>test속성에 일반적으로 조건지정</h3>
+	<c:if test="100" var="result1">
+		100은 일반값이므로 무조건false
+	</c:if>
+	\${result1 } : ${result1 }
+	<br>
+		
+	<c:if test="truE" var="result2">
+		true(TRUE)대소문자 구분 없음. 항상 참!<br>
+	</c:if>
+	\${result2 } : ${result2 }
+	<br>
+	
 	<h3>el식으로 조건판단시 {}양쪽에 공백이 있으면 무조건 false로 판단됨</h3>
 	<c:if test=" ${11 eq 11} " var="result">
 		빈 공백이 있어서 무조건 false처리됨 
 	</c:if>
 	\${result} : ${result} <br>
+	
+	<c:if test="${11 eq 11 }" var="result">
+		빈 공백이 없으면 false처리 안 됨<br>
+	</c:if>
+	\${result } : ${result }
 	
 	<!-- 
 	아이디, 패스워드를 입력후 submit 한후 EL식을 통해 파라미터로 받은후
@@ -85,7 +102,6 @@
 	EL과 JSTL의 if태그만을 이용해서 구현하시오.
 	 -->
 	<h2>Map컬렉션 이용하기</h2>
-
 	<h3>연습문제 : if태그</h3>
 	
 	<form method="get">
@@ -96,8 +112,19 @@
 		<input type="submit" value="로그인" />
 	</form>
 	
+	<c:if test="${not empty param.user}">
+		<c:if test="${param.user =='kosmo' and param.pass=='1234'}" var="result">
+			${param.user }님 어서오세요!
+		</c:if>
+		<c:if test="${not result}">
+			아이디와 비번을 입력하세요
+		</c:if>
+	</c:if>
+	
+	
+
 	<!-- 로그인을 위한 파라미터가 있는(값이 비지 않을) 경우에만 검사증을 위한 아래문장 not empty을 실행 -->
-	<c:if test="${not empty param.user }">
+<%-- 	<c:if test="${not empty param.user }">
 		
 		전송된 아이디: ${param.user }
 		<br>
@@ -115,7 +142,7 @@
 		<c:if test="${not loginResult }">
 			아이디와 비번을 확인하세요
 		</c:if>
-	</c:if>
+	</c:if> --%>
 	
 	
 	<%-- 

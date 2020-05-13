@@ -12,20 +12,21 @@
 		영역에 저장된 속성을 제거하므로, 로그아웃에서 사용할수도 있다.
  -->
 	<h2>remove태그</h2>
+	
 	<c:set var="pageVar" value="페이지영역" />
-	<c:set var="pageVar" value="리퀘스트영역1번" scope="request" />
+	<c:set var="pageVar" value="리퀘스트영역1번" scope="request"/>
 	<c:set var="requestVar" value="리퀘스트영역2번" scope="request" />
 	<c:set var="sessionVar" value="세션영역" scope="session" />
-	<c:set var="appVar" value="어플리케이션" scope="application" />
+	<c:set var="appVar" value="어플리케이션영역" scope="application" />
 	
 <!-- 
 	xxxscope내장객체를 사용하지 않으면 가장 좁은 영역의 변수를 읽어온다
  -->
 	<h3>삭제전 출력하기</h3>
-	<ul>
-		<li>페이지 : ${pageVar }</li>
-		<li>리퀘스트 1: ${requestScope.pageVar }</li>
-		<li>리퀘스트 2: ${requestVar }</li>
+	<ul>	
+		<li>페이지: ${pageVar }</li>
+		<li>리퀘스트1: ${requestScope.pageVar }</li>
+		<li>리퀘스트2: ${requestScope.requestVar }</li>
 		<li>세션: ${sessionVar }</li>
 		<li>어플리케이션: ${appVar }</li>
 	</ul>
@@ -34,7 +35,7 @@
  	영역 혹은 변수명이 설정이 잘못되더라도 에러는 발생하지 않는다.
 	 -->
 	<h3>remove로 삭제하기</h3>
-	<c:remove var="requestVar" scope="session"/>
+	<c:remove var="appVar" scope="application"/>
 	<h3>영역이 다른 속성명 삭제후 출력하기</h3>
 	<ul>
 		<li>페이지 : ${pageVar }</li>

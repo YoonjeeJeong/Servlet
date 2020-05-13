@@ -35,7 +35,7 @@ set태그 속성
 		</li>
 		<li>
 		3.value속성에 표현식으로 값 대입:
-			<c:set var="expVar" value="<%=new Date() %>" />
+			<c:set var="expVar" value="<%=new Date() %>"/>
 		</li>
 		<li>
 		4.시작태그와 종료태그 사이에 값 설정:
@@ -50,7 +50,7 @@ set태그 속성
 			directVar : <%=pageContext.getAttribute("directVar") %>
 		</li>
 		<li>
-			elVar : <%=pageContext.getAttribute("elVar") %> 
+			elVar : <%=pageContext.getAttribute("elVar") %>
 		</li>
 		<li>
 			expVar : <%=pageContext.getAttribute("expVar") %>
@@ -75,8 +75,8 @@ set태그 속성
 	<h2>set태그로 자바빈 객체설정</h2>
 	<h3>인자생성자로 설정</h3>
 	<!-- 인자생성자를 통해 DTO객체를 생성한 후 request영역에 속성을 저장한다 -->
-	<c:set var="argsMember" value='<%=new MemberDTO("KIM", "1111", "김태희", null) %>'
-		scope="request" />
+	<c:set var="argsMember" value='<%=new MemberDTO("HAN", "1111", "한태웅", null) %>' 
+		scope="request"/>
 	
 	<!-- 영역에 저장될때는 object타입으로 자동형변환되므로 사용시 해당 자료형으로
 	변환(다운캐스팅)해야 한다 -->	
@@ -95,7 +95,7 @@ set태그 속성
 	<h3>EL로 출력</h3>
 	<ul>
 		<li>아이디: ${requestScope.argsMember.id }</li>
-		<li>이름 : ${argsMember.name}</li>
+		<li>이름 : ${argsMember.name }</li>
 	</ul>
 	
 	<!-- 
@@ -111,22 +111,20 @@ set태그 속성
 	 -->
 	<h3>target속성과 property속성 사용하기</h3>
 	<!-- 1.변수생성 -->
-	<c:set var="defaultMember" value="<%=new MemberDTO() %>" 
-			scope="request" />
+	<c:set var="defaultMember" value="<%=new MemberDTO() %>" scope="request"/>
 	
 	<!-- 2.생성된 변수의 멤버변수값 지정 -->
-	<c:set target="${defaultMember }" property="id" value="Jung"/>
-	<c:set target="${defaultMember }" property="pass" value="9999" />
-	<c:set target="${defaultMember }" property="name" value="정지훈" />
+	<c:set target="${defaultMember }" property="id" value="MScordia"/>
+	<c:set target="${defaultMember }" property="pass" value="7474"/>
+	<c:set target="${defaultMember }" property="name" value="Malena Scordia"/>
 	
 	<!-- 3.지정된 값을 el로 출력 -->
 	<h3>target및 property속성으로 설정 후 출력</h3>
 	<ul>
 		<li>아이디: ${requestScope.defaultMember.id }</li>
-		<li>비번: ${defaultMember.pass }</li>
-		<li>이름: ${defaultMember.name }</li>
+		<li>패워 : ${defaultMember.pass }</li>
+		<li>이름: ${requestScope.defaultMember.name }</li>
 	</ul>
-	
 	<!-- 
 	리스트계열의 컬렉션은 배열처럼 순서를 보장하고, 인덱스로 접근되므로
 	객체에 접근시에는 인덱스를 사용한다.
@@ -137,7 +135,6 @@ set태그 속성
 	list.add(request.getAttribute("defaultMember"));//0번인덱스
 	list.add(request.getAttribute("argsMember"));//1번 인덱스
 	%>
-	
 	<h4>1단계:set태그로 리스트계열 컬렉션 설정</h4>
 	<c:set var="list" value="<%=list %>" scope="request" />
 	
@@ -150,16 +147,23 @@ set태그 속성
 		<li>이름: ${requestScope.list[0].name}</li>
 	</ul>
 	<h4>2단계: target 및 property속성으로 속성값 변경</h4>
-	<c:set target="${list[0]}" property="id" value="BTS" />
-	<c:set target="${list[0]}" property="pass" value="0000" />
-	<c:set target="${list[0]}" property="name" value="방탄소년단" />
+	<c:set target="${list[0] }" property="id" value="desserts" />
+	<c:set target="${list[0] }" property="pass" value="french" />
+	<c:set target="${list[0] }" property="name" value="Mont Blanc" />
+	
+	<c:set target="${list[1] }" property="id" value="Rugal" />
 	
 	<h4>target및 property속성으로 설정 후 출력</h4>
-	<!-- 방탄의 정보가 출력됨 -->
+	<!-- 위에서 새로 입력한 정보가 출력됨 -->
 	<ul>
-		<li>아이디: ${requestScope.list[0].id }</li>
+		<li>아이디: ${requestScope.list[0].id}</li>
 		<li>비번: ${list[0].pass}</li>
 		<li>이름: ${list[0].name}</li>
+	</ul>
+	<ul>
+		<li>아이디: ${requestScope.list[1].id}</li>
+		<li>비번: ${list[1].pass}</li>
+		<li>이름: ${list[1].name}</li>
 	</ul>
 	
 	<!-- 
@@ -168,23 +172,26 @@ set태그 속성
 	 -->
 	<h2>Map컬렉션 이용하기</h2>
 	<%
-	Map map = new HashMap();
-	map.put("def", request.getAttribute("defaultMember"));
-	map.put("args", request.getAttribute("argsMember"));
+	Map map1 = new HashMap();
+	map1.put("defs", request.getAttribute("defaultMember"));
+	map1.put("args", request.getAttribute("argsMember"));
 	%>
 	<h4>1단계: set태그로 맵 컬렉션 설정</h4>
-	<c:set var="map" value="<%=map %>" scope="request" />
+	<c:set var="map" value="<%=map1 %>" scope="request" />
 	
-	<h4>2단계: target및 property속성으로 속성값 설정</h4>
-	<c:set target="${map.args }" property="id" value="AOA" />
-	<c:set target="${map.args }" property="pass" value="7777" />
-	<c:set target="${map.args }" property="name" value="바지사장" />
+	<h4>2단계: target및 property속성으로 속성값 설정</h4>	
+	<c:set target="${map.args }" property="pass" value="0001" />
 	
 	<h4>속성값 변경후 출력</h4>
 	<ul>
 		<li>아이디: ${map.args.id}</li>
 		<li>비번: ${map.args.pass}</li>
 		<li>이름: ${map.args.name}</li>
+	</ul>
+	<ul>
+		<li>아이디: ${map.defs.id}</li>
+		<li>비번: ${map.defs.pass}</li>
+		<li>이름: ${map.defs.name}</li>
 	</ul>
 	
 </body>

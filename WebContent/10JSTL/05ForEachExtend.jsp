@@ -67,12 +67,13 @@
 		<c:forEach begin="0" end="${lists.size()-1 }" var="i">
 		<li>
 		<!-- 인덱스를 사용하므로 배열자체에 []를 붙여준다 -->
-			아이디: ${lists[i].id },
+			아이디: ${lists[i].id },<!-- 왜 세줄씩 나오는가? list라서? -->
 			패워: ${lists[i].pass },
 			이름: ${lists[i].name }
 		</li>
 		</c:forEach>
 	</ul>
+	<br>
 	<h3>확장for문 형태의 jstl의 forEach 태그</h3>
 	<ul>
 		<c:forEach items="${lists }" var="list">

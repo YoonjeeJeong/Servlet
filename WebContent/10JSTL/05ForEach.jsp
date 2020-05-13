@@ -22,6 +22,10 @@
 		<h${i }>난H${i }태그입니다</h${i }>
 	</c:forEach>
 	
+	<c:forEach begin="1" end="4" var="i">
+		<h${i }>나는 H${i }태그입니다</h${i }>
+	</c:forEach>
+	
 	<!-- 
 	일반 for문에서의 varStatus속성
 	: 반복과 관련된 정보를 추상화한 클래스인 LoopTagStatus 객체를
@@ -42,6 +46,17 @@
 			<li>current: ${loop.current }</li>
 		</ul>
 	</c:forEach>
+	<br>
+	<c:forEach begin="1" end="3" var="i" varStatus="loop">
+		<h4>${loop.count }번째 반복임</h4>
+		<ul>
+			<li>index: ${loop.index }</li>
+			<li>first: ${loop.first }</li>
+			<li>last: ${loop.last }</li>
+			<li>current: ${loop.current }</li>
+		</ul>
+	</c:forEach>
+	
 	
 	<h3>1에서 100까지 정수 중 홀수의 합</h3>	
 	<c:forEach begin="1" end="100" var="a">
@@ -50,6 +65,14 @@
 		</c:if>
 	</c:forEach>
 	1~100사이의 정수중 홀수의 합은?  ${sum}
+	
+	<h3>1에서 10까지 정수 중 짝수의 합은?</h3>
+	<c:forEach begin="1" end="10" var="i">
+		<c:if test="${i mod 2 eq 0}">
+			<c:set var="sum1" value="${sum1+i}"></c:set>
+		</c:if>
+	</c:forEach>
+	1~10사이의 합은: ${sum1 }
 	
 	<h3>중첩된 for문 활용하기</h3>
 	<!-- 
@@ -61,7 +84,28 @@
 	0 0 0 1 0
 	0 0 0 0 1
 	-->
-	<h4>if문 사용하기</h4>
+	<h4>중첩된 for문 활용하기(연습)</h4>
+	<c:forEach begin="1" end="5" var="i">
+		<c:forEach begin="1" end="5" var="j">
+			<c:if test="${i==j}">1&nbsp;</c:if>
+			<c:if test="${i ne j}">0&nbsp;</c:if>
+		</c:forEach>
+		<br>
+	</c:forEach>
+	
+	<h4>choose(연습)</h4>
+	<c:forEach begin="1" end="5" var="i">
+		<c:forEach begin="1" end="5" var="j">
+			<c:choose>
+				<c:when test="${i eq j}">1&nbsp;</c:when>
+				<c:otherwise>0&nbsp;</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<br>
+	</c:forEach>
+	
+	
+	<h4>if문 사용하기(내가 처음 해 본것)</h4>
 	<!-- 아래는 내 버전 :) varStatus는 없어도 실행 됨-->
 	<c:forEach begin="1" end="5" var="i" varStatus="loop">
 		<c:forEach begin="1" end="5" var="j">
@@ -116,6 +160,24 @@
 		<c:forEach begin="1" end="9" var="su">
 		<td>${dan}*${su} = ${(dan*su)}</td>
 		</c:forEach>
+	</tr>
+</c:forEach>
+</table>
+<br>
+<table border='1'>
+<c:forEach begin="2" end="5" var="dan" varStatus="gugudan">
+	<c:choose>
+		<c:when test="${gugudan.count mod 2 eq 0}">
+			<c:set var="color" value="white" />
+		</c:when>
+		<c:otherwise>
+			<c:set var="color" value="blue" />
+		</c:otherwise>
+	</c:choose>
+	<tr onmouseover="this.style.backgroundColor='${color}';" onmouseout="this.style.backgroundColor='white';">
+		<c:forEach begin="1" end="5" var="su">
+			<td>${dan}*${su} = ${dan*su}</td>
+		</c:forEach>	
 	</tr>
 </c:forEach>
 </table>
