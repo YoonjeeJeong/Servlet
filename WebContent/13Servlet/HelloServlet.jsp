@@ -27,7 +27,7 @@
 	</a>
 	<br>
 	
-	<!-- 절대경로(로컬호스트명 제외한(컨텍스트루트 없는) 경로) -->
+	<!-- 절대경로(로컬호스트명 제외한(프로젝트명/컨텍스트루트 없는) 슬러시로 시작하는 경로) -->
 	<a href="/K07JSPServlet/13Servlet/NoJSPServlet.do">
 		JSP파일없이 화면에 결과 출력하기(Servlet에서 바로 출력)-절대경로
 	</a>
@@ -39,6 +39,27 @@
 	
 	<h3>WebServlet - 어노테이션으로 서블릿 매핑하기</h3>
 	<a href="AnnoWebServlet.do">AnnoWebServlet바로가기</a>
+	 
+	<h3>서블릿으로 간단한 사칙연산 계산기 만들기</h3>
+	<form method="get" action="<%=request.getContextPath()%>/Servlet/Calculate.kosmo">
+		<input type="text" name="firstNum" size="5"  />
+		<select name="operator">
+			<option value="+">+</option>
+			<option value="-">-</option>
+			<option value="*">*</option>
+			<option value="/">/</option>
+		</select>
+		<input type="text" name="secondNum" size="5" />
+		<input type="submit" value="연산결과는?" />
+		<h4 style="color:red; font-size: 1.5em;">${calResult}</h4>
+	</form>
+	
+	
+	
+	
+	
+	
+	
 	 
 </body>
 </html>

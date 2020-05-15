@@ -94,7 +94,7 @@ catch (Exception e) {
 		<li>서버에저장된파일명:
 		<%=mr.getFilesystemName("chumFile1") %></li>
 		<li>컨텐츠타입:
-		<%=mr.getContentType("chunFile1") %></li>
+		<%=mr.getContentType("chumFile1") %></li>
 		<li>파일크기: <%=(int)Math.ceil(mr.getFile("chumFile1").length() / 1024.0)%>
 		Kb</li>
 		<li>이미지표현:
@@ -108,7 +108,7 @@ catch (Exception e) {
 		<li>서버에저장된파일명:
 		<%=mr.getFilesystemName("chumFile2") %></li>
 		<li>컨텐츠타입:
-		<%=mr.getContentType("chunFile2") %></li>
+		<%=mr.getContentType("chumFile2") %></li>
 		<li>파일크기: <%=(int)Math.ceil(mr.getFile("chumFile2").length() / 1024.0)%>
 		Kb</li>
 		<li>이미지표현:
