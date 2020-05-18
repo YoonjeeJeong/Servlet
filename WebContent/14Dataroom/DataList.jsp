@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 이건 보드 2임 -->
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <jsp:include page="../common/boardhead.jsp" />
 <body>
@@ -82,8 +82,8 @@ DOCTYPE html>
 									</a>
 								</td>
 								<td>${row.name }</td>
-								<td>${row.visitcount }</td>
 								<td>${row.postdate }</td>
+								<td>${row.visitcount }</td>
 								<td align="center">
 									<c:if test="${not empty row.attachedfile }">
 										<a href="./Download?filename=${row.attachedfile }&idx=${row.idx}">

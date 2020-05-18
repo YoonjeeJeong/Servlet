@@ -13,6 +13,9 @@ import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
+import model.BbsDTO;
+import model.MyfileDTO;
+
 public class DataroomDAO {
 
 	Connection con;
@@ -22,6 +25,7 @@ public class DataroomDAO {
 	//커넥션
 	public DataroomDAO() {
 		try{
+			//아래는 커넥션 풀에서 가져온 것임
 			Context initCtx = new InitialContext();			
 			/*Context ctx = (Context)initCtx.lookup("java:comp/env");
 			DataSource source = (DataSource)ctx.lookup("jdbc/myoracle");*/
@@ -112,22 +116,25 @@ public class DataroomDAO {
 		return bbs;
 	}
 	
-	/*public int myfileInsert(MyfileDTO dto) {
+	//자료실 글쓰기 처리
+	public int insert(DataroomDTO dto) {
+		
 		int affected = 0;
 		
 		try {
-			String query = "INSERT INTO myfile ( "
-					+ " idx, name, title, inter, ofile, sfile) "
+			String sql = "INSERT INTO dataroom ( "
+					+ " idx, title, name, content, attachedfile, pass, downcount) "
 					+ " VALUES ( "
-					+ " SEQ_BBS_NUM.nextval, ?, ?, ?, ?, ?)";
+					+ " dataroom_seq.nextval, ?, ?, ?, ?, ?, 0)";
 			
-			psmt = con.prepareStatement(query);
-			psmt.setString(1,  dto.getName());
-			psmt.setString(2, dto.getTitle());
-			psmt.setNString(3, dto.getInter());
-			psmt.setString(4, dto.getOfile());
-			psmt.setString(5, dto.getSfile());
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getName());
+			psmt.setString(3, dto.getContent());
+			psmt.setString(4, dto.getAttachedfile());
+			psmt.setString(5, dto.getPass());
 			
+			//insert성공시 1, 실패시 0반환(이번 건이 성공하면 1이 됨. 1보다 클 수 없음)
 			affected = psmt.executeUpdate();
 		}
 		catch (Exception e) {
@@ -135,6 +142,89 @@ public class DataroomDAO {
 			e.printStackTrace();
 		}
 		return affected;
-	}*/
+	}
+	//조회수 증가
+	public void updateVisitCount(String idx) {
 		
+		String sql = "UPDATE dataroom SET visitcount=visitcount+1 WHERE idx=? ";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, idx);
+			psmt.executeQuery();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//자료실 게시물 상세보기
+	public DataroomDTO selectView(String idx) {
+		
+		DataroomDTO dto = null;
+		
+		String sql = "SELECT * FROM dataroom " + 
+						" WHERE idx=?";
+		System.out.println(sql);
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, idx);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto = new DataroomDTO();
+				
+				dto.setIdx(rs.getString(1));
+				dto.setName(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setPostdate(rs.getDate(5));
+				dto.setAttachedfile(rs.getString(6));
+				dto.setDowncount(rs.getInt(7));
+				dto.setPass(rs.getString(8));
+				dto.setVisitcount(rs.getInt(9));//조회수 추가
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	public boolean isCorrectPassword(String pass, String idx) {
+		boolean isCorr = true;
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM dataroom " + 
+					" WHERE pass=? AND idx=?";
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, pass);
+			psmt.setString(2, idx);
+			rs = psmt.executeQuery();
+			rs.next();
+			if(rs.getInt(1)==0) {
+				isCorr = false;
+			}
+		}
+		catch (Exception e) {
+			isCorr = false;
+			e.printStackTrace();
+		}
+		return isCorr;
+	}
+	public int delete(String idx) {
+		int affected = 0;
+		try {
+			String query = "DELETE FROM dataroom WHERE idx=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, idx);
+			
+			affected = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("delete중 예외 발생");
+			e.printStackTrace();
+		}
+		return affected;
+	}
 }

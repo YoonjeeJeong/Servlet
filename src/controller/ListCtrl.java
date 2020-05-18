@@ -28,7 +28,7 @@ public class ListCtrl extends HttpServlet{
 		DataroomDAO dao = new DataroomDAO();
 		
 		//컨트롤러(서블릿) 및 View(JSP)로 전달한 파라미터를 저장하기 위한 맵
-		Map param = new HashMap();
+		Map param = new HashMap();//제네릭<object, object>지정을 안 했으니 아무거나 저장 가능
 		
 		//쿼리스트링의 파라미터를 저장하기 위한 문자열
 		String addQueryString = "";
