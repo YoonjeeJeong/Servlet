@@ -41,7 +41,7 @@
 					</tr>
 					<tr>
 						<th class="text-center table-active align-middle">내용</th>
-						<td colspan="3" style="height:150px;">
+						<td colspan="3" class="align-middle" style="height:200px;">
 							${dto.content }
 						</td>
 					</tr>
@@ -51,7 +51,7 @@
 						<!--아래는 첨부파일이 있는 경우에만 디스플레이 함 -->
 							<c:if test="${not empty dto.attachedfile }">
 							${dto.attachedfile } 
-								<a href="./Download?filenames=${dto.attachedfile}&idx=${dto.idx}">
+								<a href="./Download?filename=${dto.attachedfile}&idx=${dto.idx}">
 								[다운로드]
 								</a>
 							</c:if>
@@ -61,22 +61,22 @@
 						<td colspan="4" align="center" >
 						
 							<button type="button" class="btn btn-secondary"
-								onclick="location.href='./DataPassword?idx=${param.idx}&mode=edit&nowPage=${param.nowPage}';">
+								onclick="location.href='../DataRoom/DataPassword?mode=edit&idx=${param.idx}&nowPage=${param.nowPage}&searchColumn=${param.searchColumn}&searchWord=${param.searchWord}';">
 							수정하기</button>
 							
 							<button type="button" class="btn btn-success"
-								onclick="location.href='../DataRoom/DataPassword?idx=${dto.idx}&mode=delete&nowPage=${param.nowPage}';">
+								onclick="location.href='../DataRoom/DataPassword?mode=delete&idx=${dto.idx}&nowPage=${param.nowPage}&searchColumn=${param.searchColumn}&searchWord=${param.searchWord}';">
 							삭제하기</button>
 							
 							<button type="button" class="btn btn-warning"
-								onclick="location.href='./DataList?nowPage';">
+								onclick="location.href='./DataList?nowPage=${param.nowPage}&searchColumn=${param.searchColumn}&searchWord=${param.searchWord}';">
 								리스트보기</button>
 						</td>					
 					</tr>
 					</tbody>
 				</table>
+	</div>
 	<jsp:include page="../common/boardbottom.jsp" />
-<!-- </div>있었음 -->
 </body>
 </html>
 

@@ -73,21 +73,18 @@
 						<c:forEach items="${lists }" var="row" varStatus="loop">
 							<tr>
 								<td class="text-center"><!-- 가상번호 -->
-									${map.totalCount - (((map.nowPage-1)* map.pageSize)+
-									loop.index)}
+									${map.totalCount - (((map.nowPage-1)* map.pageSize)+ loop.index)}
 								</td>
-								<td>
-									<a href="../DataRoom/DataView?idx=${row.idx}&nowPage=${param.nowPage}">
-									${row.title }
-									</a>
+								<td class="text-left">
+<a href="../DataRoom/DataView?idx=${row.idx}&nowPage=${param.nowPage}&searchColumn=${param.searchColumn}&searchWord=${param.searchWord}">${row.title }</a>
 								</td>
-								<td>${row.name }</td>
-								<td>${row.postdate }</td>
-								<td>${row.visitcount }</td>
+								<td class="text-center">${row.name }</td>
+								<td class="text-center">${row.postdate }</td>
+								<td class="text-center">${row.visitcount }</td>
 								<td align="center">
 									<c:if test="${not empty row.attachedfile }">
 										<a href="./Download?filename=${row.attachedfile }&idx=${row.idx}">
-											<img src="../images/disk.png" width="20" alt="" />
+											<i class="material-icons" style="font-size:20px">attach_file</i>
 										</a>
 									</c:if>
 								</td>
@@ -98,14 +95,14 @@
 				<%
 				%>
 				<!-- 리스트반복 start -->
-				<tr>
+				<!-- <tr>
 					<td class="text-center"></td>
 					<td class="text-left"></a></td>
 					<td class="text-center"></td>
 					<td class="text-center"></td>
 					<td class="text-center"></td>
 					<td class="text-center"><i class="material-icons" style="font-size:20px">attach_file</i></td>
-				</tr>
+				</tr> -->
 				<!-- 리스트반복 끝 -->
 				<%
 				/////////////////////////////////////////////////	
@@ -136,13 +133,13 @@
 			<div class="row mt-3">
 				<div class="col">
 					<!-- 기본이미지 -->
-					<div style="text-align: center ; padding: 0 0 10px 0;">
+					<%-- <div style="text-align: center ; padding: 0 0 10px 0;">
+						${map.pagingImg }
+					</div> --%>
 					
-					</div>
-					
-					<!-- 페이지번호 부분 부트스트랩 -->
+					<!-- 페이지번호 부분 부트스트랩4 적용 -->
 					<ul class="pagination justify-content-center">
-						
+						${map.pagingImg }
 					</ul>
 				</div>				
 			</div>		

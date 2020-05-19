@@ -64,7 +64,6 @@ public class WriteCtrl extends HttpServlet{
 			//DAO객체 생성및 DB연결...insert처리
 			DataroomDAO dao = new DataroomDAO();
 			sucOrFail = dao.insert(dto);
-			
 			dao.close();//커넥션풀에 객체 반납
 		}
 		else {
@@ -73,8 +72,7 @@ public class WriteCtrl extends HttpServlet{
 		}
 		if(sucOrFail==1) {
 			//파일 업로드 성공 및 글쓰기 처리 성공시 다름 파일로 리다이렉트됨
-			resp.sendRedirect("../DataRoom/DataList");
-			//요청명으로 들어가게 되니, 바로 자료실페이지로 간다. jsp페이지로 요청되면 그냥html만 뜨게 된다.
+			resp.sendRedirect("../DataRoom/DataList");//요청명으로 들어가게 되니, 바로 자료실페이지로 간다. jsp페이지로 요청되면 그냥html만 뜨게 된다.
 		}
 		else {
 			//나머지는 실패로 처리한다(그리고 글쓰기 페이지로 돌아간다)
