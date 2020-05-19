@@ -5,10 +5,10 @@
 //out.print(request.getRequestURI());
 String uri = request.getRequestURI();
 String a1 ="", a2="", a3="";
-if(uri.indexOf("08Board1")>=0){
+if(uri.indexOf("08Board1")>=0){//../08Board로 시작하는 href의 경우...
 	a1 = "active";
 }
-else if(uri.indexOf("Dataroom")>=0){
+else if(uri.indexOf("Dataroom")>=0){//../Dataroom로 시작하는 href의 경우...
 	a2="active";
 }
 else {
